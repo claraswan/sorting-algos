@@ -21,8 +21,8 @@ export default defineComponent({
 
 <style scoped>
     .box {
-        width: 10rem;
-        height: 10rem;
+        width: 15rem;
+        height: 90%;
         background: purple;
         color: white;
         cursor: pointer;
@@ -30,5 +30,9 @@ export default defineComponent({
         justify-content: center;
         align-items: center;
         font-size: 1.6rem;
+        border-radius: 1rem;
+        box-shadow: 10px 10px 45px 0px rgba(0,0,0,0.44);
+        -webkit-box-shadow: 10px 10px 45px 0px rgba(0,0,0,0.44);
+        -moz-box-shadow: 10px 10px 45px 0px rgba(0,0,0,0.44);
     }
 </style>

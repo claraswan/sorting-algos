@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, defineProps } from 'vue';
 import AlgoBox from '@/components/AlgoBox.vue'
 
 defineProps({
@@ -9,31 +9,37 @@ defineProps({
 export default defineComponent({
     props: {
         algorithms: {
-            type: [String],
+            type: Array<string>,
             required: true
         }
     },
     components: {AlgoBox},
-    setup(props) {
+    setup(props, {emit}) {
+        const selectAlgo = (algorithm) => {
+            emit('algorithm-select', algorithm);
+        }
 
-        return {props}
+        return {props, selectAlgo}
     }
 })
 </script>
 
 <template>
     <div class="header__wrapper">
-        <AlgoBox v-for="algo in props.algorithms" :algo="algo" />
+        <AlgoBox 
+            v-for="algo in props.algorithms" 
+            :algo="algo" 
+            @click="selectAlgo(algo)"
+        />
     </div>
 </template>
 
 <style scoped>
-.header__Wrapper {
+.header__wrapper {
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
     width: 100vw;
-    height: 40rem;
+    height: 12rem;
 }
 </style>
