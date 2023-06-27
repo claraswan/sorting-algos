@@ -6,7 +6,7 @@ export default defineComponent({
         algo: {
             type: String,
             required: true
-        }
+        },
     },
     setup(props) {
 
@@ -23,8 +23,9 @@ export default defineComponent({
     .box {
         width: 15rem;
         height: 90%;
-        background: purple;
-        color: white;
+        border: 2px solid #800080;
+        background-color: #fff;
+        color: #800080;
         cursor: pointer;
         display: flex;
         justify-content: center;

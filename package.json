@@ -14,9 +14,11 @@
     "sass": "node-sass src/assets/main.scss src/assets/main.css -w"
   },
   "dependencies": {
+    "chart.js": "^4.3.0",
     "node-sass": "^9.0.0",
     "pinia": "^2.1.3",
     "vue": "^3.3.4",
+    "vue-chartjs": "^5.2.0",
     "vue-router": "^4.2.2"
   },
   "devDependencies": {

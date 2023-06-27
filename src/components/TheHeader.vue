@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, defineProps } from 'vue';
+import { ref, defineComponent, defineProps } from 'vue';
 import AlgoBox from '@/components/AlgoBox.vue'
 
 defineProps({
@@ -15,8 +15,14 @@ export default defineComponent({
     },
     components: {AlgoBox},
     setup(props, {emit}) {
+        let inputGiven = ref(false);
+
         const selectAlgo = (algorithm) => {
-            emit('algorithm-select', algorithm);
+            if (!inputGiven) {
+                emit('need-input');
+            } else {
+                emit('algorithm-select', algorithm);
+            }
         }
 
         return {props, selectAlgo}
