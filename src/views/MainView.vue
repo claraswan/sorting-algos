@@ -1,40 +1,32 @@
-<script lang="ts">
+<script setup lang="ts">
 import { ref, defineComponent } from 'vue';
 import TheHeader from '@/components/TheHeader.vue'
 import BarChart from '@/components/BarChart.vue'
 import AppInput from '@/components/AppInput.vue'
 
-export default defineComponent({
-    components: {TheHeader, BarChart, AppInput},
-    setup(props) {
-      let noAlgSelected = ref(true);
-      let inputError = ref(false);
-      let selectedAlgorithm = ref('');
-      let numbersToSort = ref([]);
+let noAlgSelected = ref(true);
+let inputError = ref(false);
+let selectedAlgorithm = ref('');
+let numbersToSort = ref([]);
 
-      const changeAlgorithmView = (algorithm) => {
-        selectedAlgorithm.value = algorithm;
-        noAlgSelected.value = false;
-      }
+const startSort = (algorithm) => {
+  selectedAlgorithm.value = algorithm;
+  noAlgSelected.value = false;
+  console.log(`starting ${selectedAlgorithm.value} sort!`);
+}
 
-      const fillArray = (numbers: Array<string> ) => {
-        numbers = numbers.filter(function(str: string) {
-            return /\S/.test(str);
-        });
-
-        for (let num of numbers) {
-          //numbersToSort.push(num);
-          console.log(num);
-        }
-      }
-
-      const saveArray = () => {
-        console.log('hi');
-      }
-
-      return {props, noAlgSelected, selectedAlgorithm, changeAlgorithmView, inputError, fillArray, saveArray  }
+const fillArray = (numbers) => {
+  for (let num of numbers) {
+    if (typeof num === 'string' && num !== " ") {
+      num = parseInt(num);
+      if (Array.isArray(numbersToSort.value)) numbersToSort.value.push(num);
     }
-})
+  }
+}
+
+const saveArray = () => {
+  noAlgSelected.value = false;
+}
 
 </script>
 
@@ -42,13 +34,19 @@ export default defineComponent({
   <main>
     <TheHeader 
       :algorithms="['bubble', 'merge', 'selection', 'quick']"
-      @algorithm-select="changeAlgorithmView"
+      @algorithm-select="startSort"
       @need-input="inputError = true"
     />
-    <div class="content" v-if="noAlgSelected">
-      <AppInput @numbers="fillArray"/>
-      <div class="confirm" @click="saveArray">
-        Save
+    <div 
+      class="content" 
+      v-if="noAlgSelected"
+      >
+      <AppInput @num="fillArray"/>
+      <div 
+        class="confirm" 
+        @click="saveArray"
+      >
+        Go
       </div>
       <div 
         class="content__error"
@@ -60,6 +58,7 @@ export default defineComponent({
     <div class="content" v-else="">
       {{selectedAlgorithm}}
       <BarChart 
+        :data="numbersToSort"
         :algorithm="selectedAlgorithm"
       />
     </div>

@@ -8,9 +8,9 @@ export default defineComponent({
         }
     },
     setup(props, {emit}) {
-        let numbersToSort = ref([]);
+        let num = ref('');
 
-        return {numbersToSort}
+        return {num}
     }
 })
 </script>
@@ -19,12 +19,12 @@ export default defineComponent({
     <div class="input">
         <input 
             name="numbers"
-            v-model="numbersToSort"
-            @change="$emit('numbers', numbersToSort)"
+            v-model="num"
+            @change="$emit('num', num)"
             v-focus
         />
         <label for="numbers">
-            Type some numbers, each separated by a space.
+            Type some numbers, each separated by a space. Then click Go.
         </label>
     </div>
 </template>

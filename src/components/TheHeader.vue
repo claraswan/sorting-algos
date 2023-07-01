@@ -1,33 +1,22 @@
-<script lang="ts">
-import { ref, defineComponent, defineProps } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 import AlgoBox from '@/components/AlgoBox.vue'
 
-defineProps({
+const props = defineProps<{
     algorithms: Array<string>
-})
+}>()
 
-export default defineComponent({
-    props: {
-        algorithms: {
-            type: Array<string>,
-            required: true
-        }
-    },
-    components: {AlgoBox},
-    setup(props, {emit}) {
-        let inputGiven = ref(false);
+let inputGiven = ref(false);
+const emit = defineEmits(['need-input', 'algorithm-select']);
 
-        const selectAlgo = (algorithm) => {
-            if (!inputGiven) {
-                emit('need-input');
-            } else {
-                emit('algorithm-select', algorithm);
-            }
-        }
-
-        return {props, selectAlgo}
+const selectAlgo = (algorithm) => {
+    if (!inputGiven) {
+        emit('need-input');
+    } else {
+        emit('algorithm-select', algorithm);
     }
-})
+}
+
 </script>
 
 <template>
