@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { Chart as ChartJS, Title, Tooltip, BarElement, CategoryScale, LinearScale } from 'chart.js'
 
 const props = defineProps<{
   data: Array<number>
   algorithm: string
 }>()
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+console.log('data is:', props.data);
+
+ChartJS.register(Title, Tooltip, BarElement, CategoryScale, LinearScale)
 const chartData = {
     title: props.algorithm,
-    labels: [...props.data],
+    labels: [...props.data.map((_, i) => i)],
     datasets: [ 
         { 
             backgroundColor: '#800080',

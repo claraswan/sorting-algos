@@ -1,25 +1,32 @@
 <script setup lang="ts">
-import { ref, defineComponent } from 'vue';
+import { ref } from 'vue';
 import TheHeader from '@/components/TheHeader.vue'
 import BarChart from '@/components/BarChart.vue'
 import AppInput from '@/components/AppInput.vue'
+import bblSort from '@/algorithms/bubbleSort';
 
 let noAlgSelected = ref(true);
 let inputError = ref(false);
 let selectedAlgorithm = ref('');
-let numbersToSort = ref([]);
+let numbersToSort = ref([0]);
 
-const startSort = (algorithm) => {
+const startSort = (algorithm: string) => {
   selectedAlgorithm.value = algorithm;
   noAlgSelected.value = false;
   console.log(`starting ${selectedAlgorithm.value} sort!`);
+  if (selectedAlgorithm.value === 'bubble') {
+    numbersToSort.value = bblSort(numbersToSort.value);
+  } else {
+    return;
+  }
 }
 
-const fillArray = (numbers) => {
+const fillArray = (numbers: Array<string>) => {
+  numbersToSort.value = [];
   for (let num of numbers) {
     if (typeof num === 'string' && num !== " ") {
-      num = parseInt(num);
-      if (Array.isArray(numbersToSort.value)) numbersToSort.value.push(num);
+      let integer = parseInt(num);
+      if (Array.isArray(numbersToSort.value)) numbersToSort.value.push(integer);
     }
   }
 }
@@ -37,9 +44,10 @@ const saveArray = () => {
       @algorithm-select="startSort"
       @need-input="inputError = true"
     />
+
     <div 
-      class="content" 
-      v-if="noAlgSelected"
+        class="content" 
+        v-if="noAlgSelected"
       >
       <AppInput @num="fillArray"/>
       <div 
@@ -47,12 +55,6 @@ const saveArray = () => {
         @click="saveArray"
       >
         Go
-      </div>
-      <div 
-        class="content__error"
-        v-show="inputError"
-      >
-        Save your numbers before you choose an algorithm!
       </div>
     </div>
     <div class="content" v-else="">
@@ -75,6 +77,11 @@ const saveArray = () => {
   flex-direction: column;
   font-size: 1.8rem;
   margin-top: 4rem;
+}
+
+.content__error {
+  color: red;
+  font-size: 1.8rem;
 }
 
 .confirm {

@@ -6,15 +6,10 @@ const props = defineProps<{
     algorithms: Array<string>
 }>()
 
-let inputGiven = ref(false);
-const emit = defineEmits(['need-input', 'algorithm-select']);
+const emit = defineEmits(['algorithm-select']);
 
-const selectAlgo = (algorithm) => {
-    if (!inputGiven) {
-        emit('need-input');
-    } else {
-        emit('algorithm-select', algorithm);
-    }
+const selectAlgo = (algorithm: string) => {
+    emit('algorithm-select', algorithm);
 }
 
 </script>
