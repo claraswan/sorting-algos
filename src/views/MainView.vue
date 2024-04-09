@@ -1,73 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import TheHeader from '@/components/TheHeader.vue'
-import BarChart from '@/components/BarChart.vue'
-import AppInput from '@/components/AppInput.vue'
 import bblSort from '@/algorithms/bubbleSort';
+import AlgoSelectionPage from '@/components/algo-selection/AlgoSelectionPage.vue';
+import AlgoVisualizationPage from '@/components/algo-visualization/AlgoVisualizationPage.vue';
+import { Algorithm } from '@/services/types';
 
 let noAlgSelected = ref(true);
-let inputError = ref(false);
-let selectedAlgorithm = ref('');
-let numbersToSort = ref([0]);
+let selectedAlgorithm = ref('' as Algorithm);
 
-const startSort = (algorithm: string) => {
+const algoSelect = (algorithm: Algorithm) => {
+  noAlgSelected.value = false;
   selectedAlgorithm.value = algorithm;
-  noAlgSelected.value = false;
-  console.log(`starting ${selectedAlgorithm.value} sort!`);
-  if (selectedAlgorithm.value === 'bubble') {
-    numbersToSort.value = bblSort(numbersToSort.value);
-  } else {
-    return;
-  }
-}
-
-const fillArray = (numbers: Array<string>) => {
-  numbersToSort.value = [];
-  for (let num of numbers) {
-    if (typeof num === 'string' && num !== " ") {
-      let integer = parseInt(num);
-      if (Array.isArray(numbersToSort.value)) numbersToSort.value.push(integer);
-    }
-  }
-}
-
-const saveArray = () => {
-  noAlgSelected.value = false;
 }
 
 </script>
 
 <template>
   <main>
-    <TheHeader 
-      :algorithms="['bubble', 'merge', 'selection', 'quick']"
-      @algorithm-select="startSort"
-      @need-input="inputError = true"
-    />
+    <AlgoSelectionPage v-if="noAlgSelected" :algorithms="Object.values(Algorithm)" @algorithm-select="algoSelect" />
 
-    <div 
-        class="content" 
-        v-if="noAlgSelected"
-      >
-      <AppInput @num="fillArray"/>
-      <div 
-        class="confirm" 
-        @click="saveArray"
-      >
-        Go
-      </div>
-    </div>
-    <div class="content" v-else="">
-      {{selectedAlgorithm}}
-      <BarChart 
-        :data="numbersToSort"
-        :algorithm="selectedAlgorithm"
-      />
-    </div>
+    <AlgoVisualizationPage v-else :algorithm="selectedAlgorithm" />
   </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .content {
   width: 100%;
   height: 75vh;
@@ -77,22 +33,10 @@ const saveArray = () => {
   flex-direction: column;
   font-size: 1.8rem;
   margin-top: 4rem;
-}
 
-.content__error {
-  color: red;
-  font-size: 1.8rem;
-}
-
-.confirm {
-  height: 4rem;
-  width: 5rem;
-  border-radius: .3rem;
-  background: #800080;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  &__error {
+    color: red;
+    font-size: 1.8rem;
+  }
 }
 </style>
