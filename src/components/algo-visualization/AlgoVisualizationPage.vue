@@ -5,6 +5,7 @@ import { onMounted, ref } from 'vue'
 import bblSort from '@/algorithms/bubbleSort'
 import selectionSort from '@/algorithms/selectionSort';
 import mergeSort from '@/algorithms/mergeSort';
+import insertionSort from '@/algorithms/insertionSort';
 
 const props = defineProps<{
     algorithm: Algorithm
@@ -20,6 +21,8 @@ const startSort = async () => {
         numbersToSort.value = await selectionSort(numbersToSort.value);
     } else if (props.algorithm === Algorithm.merge) {
         numbersToSort.value = await mergeSort(numbersToSort.value);
+    } else if (props.algorithm === Algorithm.insertion) {
+        numbersToSort.value = await insertionSort(numbersToSort.value);
     } else {
         // handle this?
         return;
@@ -31,6 +34,7 @@ const generateNumbers = () => {
         { length: numbersToSortLength.value },
         () => Math.floor(Math.random() * numbersToSortLength.value + 1)
     );
+    console.log(numbersToSort.value)
 }
 
 onMounted(() => {
