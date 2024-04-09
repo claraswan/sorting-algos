@@ -3,6 +3,8 @@ import AlgoVisualizationBarChart from '@/components/algo-visualization/AlgoVisua
 import { Algorithm } from '@/services/types'
 import { onMounted, ref } from 'vue'
 import bblSort from '@/algorithms/bubbleSort'
+import selectionSort from '@/algorithms/selectionSort';
+import mergeSort from '@/algorithms/mergeSort';
 
 const props = defineProps<{
     algorithm: Algorithm
@@ -14,6 +16,10 @@ const numbersToSortLength = ref(10);
 const startSort = async () => {
     if (props.algorithm === Algorithm.bubble) {
         numbersToSort.value = await bblSort(numbersToSort.value);
+    } else if (props.algorithm === Algorithm.selection) {
+        numbersToSort.value = await selectionSort(numbersToSort.value);
+    } else if (props.algorithm === Algorithm.merge) {
+        numbersToSort.value = await mergeSort(numbersToSort.value);
     } else {
         // handle this?
         return;
