@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { Chart as ChartJS, Title, Tooltip, BarElement, CategoryScale, LinearScale, type CoreChartOptions } from 'chart.js'
 
 const props = defineProps<{
   data: Array<number>
@@ -22,8 +22,12 @@ const chartData = computed(() => {
 });
 
 const chartOptions = {
-  responsive: true
-}
+  responsive: true,
+  animation: {
+    duration: 400,
+    easing: 'linear'
+  }
+} as CoreChartOptions<"bar">
 
 </script>
 
