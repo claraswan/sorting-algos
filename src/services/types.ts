@@ -1,6 +1,6 @@
 export enum Algorithm {
     bubble = "bubble",
+    selection = "selection",
     merge = "merge",
-    quick = "quick",
-    selection = "selection"
+    insertion = "insertion",
 }

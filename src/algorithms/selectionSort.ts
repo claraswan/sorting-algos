@@ -8,16 +8,13 @@ export default async function selectionSort(numbers: Array<number>): Promise<Arr
         for (let j = i + 1; j < numbers.length; j++) {
             if (numbers[j] < numbers[position_smallest]) {
                 position_smallest = j;
-                waitASecond(numbers); 
+                await waitASecond(numbers); 
             }
         }
 
         // swap the new smallest element into place if the array is longer than 1
         if (i !== position_smallest) {
-            let tmp = numbers[i];
-            numbers[i] = numbers[position_smallest];
-            numbers[position_smallest] = tmp;
-            //[numbers[i], numbers[position_smallest]] = [numbers[position_smallest], numbers[i]]
+            [numbers[i], numbers[position_smallest]] = [numbers[position_smallest], numbers[i]]
         }
     }
 
