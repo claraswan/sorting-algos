@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import AlgoVisualizationBarChart from '@/components/algo-visualization/AlgoVisualizationBarChart.vue'
-
 import { Algorithm } from '@/services/types'
 import { ref } from 'vue'
 import bblSort from '@/algorithms/bubbleSort'
@@ -11,11 +10,11 @@ const props = defineProps<{
 
 const numbersToSort = ref([2, 3, 1, 8]);
 
-const startSort = async () => {
-    console.log(props.algorithm === Algorithm.bubble)
+const startSort = () => {
     if (props.algorithm === Algorithm.bubble) {
-        numbersToSort.value = await bblSort(numbersToSort.value);
+        numbersToSort.value = bblSort(numbersToSort.value);
     } else {
+        // handle this?
         return;
     }
 }

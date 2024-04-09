@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { computed } from "vue"
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, BarElement, CategoryScale, LinearScale } from 'chart.js'
 
@@ -7,19 +7,21 @@ const props = defineProps<{
   data: Array<number>
 }>()
 
-let chartData = ref({
-  labels: [...props.data.map((_, i) => i)],
-  datasets: [
-    {
-      backgroundColor: '#800080',
-      data: props.data
-    }
-  ]
+ChartJS.register(Title, Tooltip, BarElement, CategoryScale, LinearScale);
+
+const chartData = computed(() => {
+  return {
+    labels: [...props.data.map(i => i)],
+    datasets: [
+      {
+        backgroundColor: '#800080',
+        data: props.data
+      }
+    ]
+  }
 });
 
 const chartOptions = { responsive: true }
-
-ChartJS.register(Title, Tooltip, BarElement, CategoryScale, LinearScale);
 
 </script>
 
