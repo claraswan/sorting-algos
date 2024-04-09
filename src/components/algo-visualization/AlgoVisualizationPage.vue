@@ -11,9 +11,9 @@ const props = defineProps<{
 const numbersToSort = ref([] as Array<number>);
 const numbersToSortLength = ref(10);
 
-const startSort = () => {
+const startSort = async () => {
     if (props.algorithm === Algorithm.bubble) {
-        numbersToSort.value = bblSort(numbersToSort.value);
+        numbersToSort.value = await bblSort(numbersToSort.value);
     } else {
         // handle this?
         return;

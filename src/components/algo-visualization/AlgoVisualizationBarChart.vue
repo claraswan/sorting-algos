@@ -21,7 +21,9 @@ const chartData = computed(() => {
   }
 });
 
-const chartOptions = { responsive: true }
+const chartOptions = {
+  responsive: true
+}
 
 </script>
 
