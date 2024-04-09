@@ -22,7 +22,7 @@ const startSort = () => {
 
 const generateNumbers = () => {
     numbersToSort.value = Array.from(
-        { length: numbersToSortLength.value }, 
+        { length: numbersToSortLength.value },
         () => Math.floor(Math.random() * numbersToSortLength.value + 1)
     );
 }
@@ -36,12 +36,15 @@ onMounted(() => {
 <template>
     <h1>{{ algorithm }} sort</h1>
     <div class="algo-visual__wrapper">
-        <AlgoVisualizationBarChart :data="numbersToSort" />
-        <div class="algo-visual__actions d-flex gap-2 m-4">
+        <div class="algo-visual__actions d-flex gap-4 m-4">
+            <label class="algo-visual__actions--length">
+                Change amount of numbers
+                <input class="form-control" type="number" v-model="numbersToSortLength" />
+            </label>
             <button class="btn btn-primary" @click="generateNumbers">Generate new numbers</button>
             <button class="btn btn-primary" @click="startSort">Start sort</button>
         </div>
-
+        <AlgoVisualizationBarChart :data="numbersToSort" />
     </div>
 </template>
 
@@ -50,6 +53,12 @@ onMounted(() => {
     &__wrapper {
         max-height: 70vh;
         width: 100%;
+    }
+
+    &__actions {
+        &--length {
+            font-size: 1.2rem;
+        }
     }
 }
 </style>
