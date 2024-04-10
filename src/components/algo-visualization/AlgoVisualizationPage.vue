@@ -8,7 +8,8 @@ import mergeSort from '@/algorithms/mergeSort';
 import insertionSort from '@/algorithms/insertionSort';
 
 const props = defineProps<{
-    algorithm: Algorithm;
+    algorithm: Algorithm,
+    description: string
 }>();
 
 const numbersToSort = ref([] as Array<number>);
@@ -42,15 +43,16 @@ onMounted(() => {
 </script>
 
 <template>
-    <h1>{{ algorithm }} sort</h1>
-    <div class="algo-visual__wrapper">
+    <h1 class="main-h1">{{ algorithm }} sort</h1>
+    <h4 class="text-muted m-4">{{ description }}</h4>
+    <div class="algo-visual__wrapper d-flex flex-column gap-4">
         <div class="algo-visual__actions d-flex gap-4 m-4">
             <label class="algo-visual__actions--length">
                 Change amount of numbers
                 <input class="form-control" type="number" v-model="numbersToSortLength" />
             </label>
-            <button class="btn btn-primary" @click="generateNumbers">Generate new numbers</button>
-            <button class="btn btn-primary" @click="startSort">Start sort</button>
+            <button class="btn btn-outline-primary" @click="generateNumbers">Generate new numbers</button>
+            <button class="btn btn-outline-primary" @click="startSort">Start sort</button>
         </div>
         <AlgoVisualizationBarChart :data="numbersToSort" />
     </div>
@@ -58,10 +60,6 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .algo-visual {
-    &__wrapper {
-        max-height: 70vh;
-        width: 100%;
-    }
 
     &__actions {
         &--length {

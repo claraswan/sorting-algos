@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { Bar } from 'vue-chartjs';
 import {
     Chart as ChartJS,
@@ -8,7 +8,7 @@ import {
     BarElement,
     CategoryScale,
     LinearScale,
-    type CoreChartOptions,
+    type ChartOptions
 } from 'chart.js';
 
 const props = defineProps<{
@@ -22,7 +22,7 @@ const chartData = computed(() => {
         labels: [...props.data.map((i) => i)],
         datasets: [
             {
-                backgroundColor: '#800080',
+                backgroundColor: '#5129a4',
                 data: props.data,
             },
         ],
@@ -35,9 +35,32 @@ const chartOptions = {
         duration: 400,
         easing: 'linear',
     },
-} as CoreChartOptions<'bar'>;
+    scales: {
+        x: {
+            grid: {
+                display: false
+            }
+        },
+        y: {
+            display: false,
+            grid: {
+                display: false
+            }
+        }
+    }
+} as ChartOptions<'bar'>;
 </script>
 
 <template>
-    <Bar id="bar-chart" :options="chartOptions" :data="chartData" />
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <Bar id="bar-chart" :options="chartOptions" :data="chartData" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
