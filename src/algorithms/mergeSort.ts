@@ -1,6 +1,6 @@
 import { waitASecond } from '@/services/utils';
 
-export default async function mergeSort(numbers: Array<number>) {
+export default async function mergeSort(numbers: Array<number>, withTimeout: boolean = true) {
     const n = numbers.length;
 
     let len = 1;
@@ -29,7 +29,9 @@ export default async function mergeSort(numbers: Array<number>) {
             }
 
             i = i + 2 * len;
-            await waitASecond(numbers);
+            if (withTimeout) {
+                await waitASecond(numbers);
+            }
         }
 
         len = 2 * len;

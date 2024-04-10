@@ -1,6 +1,9 @@
 import { waitASecond } from '@/services/utils';
 
-export default async function insertionSort(numbers: Array<number>): Promise<Array<number>> {
+export default async function insertionSort(
+    numbers: Array<number>,
+    withTimeout: boolean = true,
+): Promise<Array<number>> {
     for (let i = 1; i < numbers.length; i++) {
         const selectedItem = numbers[i];
         let j = i - 1;
@@ -12,7 +15,9 @@ export default async function insertionSort(numbers: Array<number>): Promise<Arr
         }
 
         numbers[j + 1] = selectedItem;
-        await waitASecond(numbers);
+        if (withTimeout) {
+            await waitASecond(numbers);
+        }
     }
 
     return numbers;
