@@ -9,9 +9,9 @@ export default async function mergeSort(numbers: Array<number>) {
 
         // iterate over all parts of numbers of size len and save beginning and end index of each two adjacent parts
         while (i < n) {
-            let startLeft = i;
-            let startRight = i + len - 1;
-            let endLeft = i + len;
+            const startLeft = i;
+            const startRight = i + len - 1;
+            const endLeft = i + len;
             let endRight = i + 2 * len - 1;
 
             if (endLeft >= n) {
@@ -22,7 +22,7 @@ export default async function mergeSort(numbers: Array<number>) {
                 endRight = n - 1;
             }
 
-            let temp = merge(numbers, startLeft, startRight, endLeft, endRight);
+            const temp = merge(numbers, startLeft, startRight, endLeft, endRight);
             // copy the elements from temp into their respective places in numbers
             for (let j = 0; j < endRight - startLeft + 1; j++) {
                 numbers[i + j] = temp[j];
@@ -45,7 +45,7 @@ function merge(
     endIndexLeft: number,
     endIndexRight: number,
 ) {
-    let temp = [];
+    const temp = [];
     let index = 0; // the index that should hold the next value to be added to temp
 
     // iterate over the two parts together
@@ -80,6 +80,7 @@ function merge(
     return temp;
 }
 
+// eslint-disable-next-line
 async function recursiveMergeSort(numbers: Array<number>): Promise<Array<number>> {
     if (numbers.length <= 1) {
         return numbers;
@@ -97,7 +98,7 @@ async function mergeTwoSortedArrays(
     left: Array<number>,
     right: Array<number>,
 ): Promise<Array<number>> {
-    let mergedArray: Array<number> = [];
+    const mergedArray: Array<number> = [];
 
     while (left.length && right.length) {
         // check which array's first item is smaller, then pushing that first item into the mergedArray

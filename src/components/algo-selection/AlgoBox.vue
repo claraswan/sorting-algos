@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { defineComponent } from 'vue';
-
 const props = defineProps<{
-    algo: string
-}>()
-
+    algo: string;
+}>();
 </script>
 
 <template>

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import AlgoVisualizationBarChart from '@/components/algo-visualization/AlgoVisualizationBarChart.vue'
-import { Algorithm } from '@/services/types'
-import { onMounted, ref } from 'vue'
-import bblSort from '@/algorithms/bubbleSort'
+import AlgoVisualizationBarChart from '@/components/algo-visualization/AlgoVisualizationBarChart.vue';
+import { Algorithm } from '@/services/types';
+import { onMounted, ref } from 'vue';
+import bblSort from '@/algorithms/bubbleSort';
 import selectionSort from '@/algorithms/selectionSort';
 import mergeSort from '@/algorithms/mergeSort';
 import insertionSort from '@/algorithms/insertionSort';
 
 const props = defineProps<{
-    algorithm: Algorithm
-}>()
+    algorithm: Algorithm;
+}>();
 
 const numbersToSort = ref([] as Array<number>);
 const numbersToSortLength = ref(10);
@@ -27,20 +27,18 @@ const startSort = async () => {
         // handle this?
         return;
     }
-}
+};
 
 const generateNumbers = () => {
-    numbersToSort.value = Array.from(
-        { length: numbersToSortLength.value },
-        () => Math.floor(Math.random() * numbersToSortLength.value + 1)
+    numbersToSort.value = Array.from({ length: numbersToSortLength.value }, () =>
+        Math.floor(Math.random() * numbersToSortLength.value + 1),
     );
-    console.log(numbersToSort.value)
-}
+    console.log(numbersToSort.value);
+};
 
 onMounted(() => {
     generateNumbers();
-})
-
+});
 </script>
 
 <template>
