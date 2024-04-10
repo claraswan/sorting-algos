@@ -5,9 +5,11 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="card text-center algo-box">
-        <h5 class="card-title">
-            {{ props.algo }}
-        </h5>
+    <div class="card algo-box p-1 m-5">
+        <div class="card-body d-flex align-items-center justify-content-center">
+            <h4 class="text-center">
+                {{ props.algo }}
+            </h4>
+        </div>
     </div>
 </template>
